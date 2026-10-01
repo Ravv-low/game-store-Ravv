@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dykojoki.id - Pusat Top Up & Joki Game Profesional</title>
+    <meta name="description" content="Platform belanja top up game kilat & jasa joki terpercaya dengan harga pasaran terbaik.">
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-gamepad"></i> DYKO<span>JOKI</span>
+            </a>
+            
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Ketik nama game...">
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-outline theme-toggle-btn" style="border:none; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);"><i class="fa-solid fa-moon"></i></button>
+                <a href="calculator.html" class="btn btn-outline" style="border:none;"><i class="fa-solid fa-calculator"></i><span class="desktop-text">&nbsp; Kalkulator ML</span></a>
+                <a href="#" class="btn btn-outline" id="btnLogin"><i class="fa-solid fa-user"></i><span class="desktop-text">&nbsp; Masuk</span></a>
+                <a href="#" class="btn btn-primary" id="btnCekInvoice"><i class="fa-solid fa-receipt"></i><span class="desktop-text">&nbsp; Cek Pesanan</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="container">
+        <!-- Banner Carousel (Static for UI) -->
+        <div class="carousel mt-4 mb-4">
+            <!-- Promo Slider Carousel -->
+        <div class="slider-container mb-4">
+            <div class="slider-track" id="promoSlider">
+                
+                <!-- Slide 1 -->
+                <div class="slide">
+                    <img src="https://picsum.photos/1200/400?random=1" alt="Promo Diskon">
+                    <div class="slide-content">
+                        <h2>Event Diskon Joki 20%</h2>
+                        <p>Khusus akhir pekan untuk seluruh Tier Mobile Legends!</p>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <img src="https://picsum.photos/1200/400?random=2" alt="Promo Top Up">
+                    <div class="slide-content">
+                        <h2>Top Up Diamond & UC Bebas Pajak</h2>
+                        <p>Harga pasaran terbaik se-Indonesia. Masuk dalam hitungan detik!</p>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <img src="https://picsum.photos/1200/400?random=3" alt="Promo Garansi">
+                    <div class="slide-content">
+                        <h2>Garansi Aman 100%</h2>
+                        <p>Proses ditangani murni pro-player, Anti Banned Mitos!</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Indicators -->
+            <div class="slider-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+        </div>
+
+        <!-- Populer Kategori -->
+        <div class="mb-4">
+            <!-- Game Grid -->
+        <h2 class="section-heading"><i class="fa-solid fa-fire"></i> Kategori Terpopuler</h2>
+        <div class="game-grid mb-4">
+            
+            <a href="payment.html?game=mlbb" class="game-card fade-in">
+                <img src="assets/mlbb.png" alt="Mobile Legends">
+                <h3 class="game-card-title">Mobile Legends</h3>
+            </a>
+            
+            <a href="payment.html?game=pubg" class="game-card fade-in" style="animation-delay: 0.1s;">
+                <img src="assets/pubg.jpg" alt="PUBG Mobile">
+                <h3 class="game-card-title">PUBG Mobile</h3>
+            </a>
+
+            <a href="payment.html?game=freefire" class="game-card fade-in" style="animation-delay: 0.2s;">
+                <img src="assets/ff.jpg" alt="Free Fire">
+                <h3 class="game-card-title">Free Fire</h3>
+            </a>
+
+            <a href="payment.html?game=genshin" class="game-card fade-in" style="animation-delay: 0.3s;">
+                <img src="assets/genshin.jpg" alt="Genshin Impact">
+                <h3 class="game-card-title">Genshin Impact</h3>
+            </a>
+
+            <a href="payment.html?game=roblox" class="game-card fade-in" style="animation-delay: 0.4s;">
+                <img src="assets/roblox.jpg" alt="Roblox">
+                <h3 class="game-card-title">Roblox</h3>
+            </a>
+
+        </div>            </div>
+        </div>
+
+        <!-- Keunggulan Section restored -->
+        <div class="mb-4 mt-4">
+            <h2 class="section-heading"><i class="fa-solid fa-shield-halved"></i> Kenapa Memilih Kami?</h2>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem;">
+                <div style="background:var(--surface-bg); padding:1.5rem; border-radius:var(--radius); text-align:center;">
+                    <i class="fa-solid fa-bolt" style="color:var(--primary-color); font-size:2rem; margin-bottom:1rem;"></i>
+                    <h4>Proses Kilat</h4>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;">Pesanan diproses otomatis dan cepat 24/7 tanpa delay.</p>
+                </div>
+                <div style="background:var(--surface-bg); padding:1.5rem; border-radius:var(--radius); text-align:center;">
+                    <i class="fa-solid fa-lock" style="color:var(--primary-color); font-size:2rem; margin-bottom:1rem;"></i>
+                    <h4>Aman & Terpercaya</h4>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;">Jaminan keamanan data akun dan transaksi 100% legal.</p>
+                </div>
+                <div style="background:var(--surface-bg); padding:1.5rem; border-radius:var(--radius); text-align:center;">
+                    <i class="fa-solid fa-headset" style="color:var(--primary-color); font-size:2rem; margin-bottom:1rem;"></i>
+                    <h4>Layanan CS 24/7</h4>
+                    <p style="color:var(--text-secondary); font-size:0.9rem;">Admin selalu siap membantu jika Anda mengalami kendala.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4 mt-4" id="testimoni" style="max-width: 800px; margin: 0 auto;">
+            <h2 class="section-heading text-center" style="justify-content:center;"><i class="fa-solid fa-comments"></i> Apa Kata Pengguna?</h2>
+            
+            <div class="interactive-testi-container fade-in">
+                <div class="testi-mascot">
+                    <img src="" alt="User Avatar" id="testiAvatar">
+                </div>
+                <div class="speech-bubble">
+                    <div id="testiStars" style="color: gold; margin-bottom: 5px;"></div>
+                    <h3 id="testiName" style="color:var(--secondary-color); margin: 0; font-size:1.2rem;"></h3>
+                    <span id="testiGame" style="font-size:0.85rem; color:#aaa; font-weight:600;"></span>
+                    <p id="testiText" class="testi-text"></p>
+                    <div class="testi-controls">
+                        <button class="btn-circle" id="prevTesti"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="btn-circle" id="nextTesti"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Testimonial Form -->
+            <div style="background:var(--surface-bg); max-width: 600px; margin: 2rem auto 0; padding: 2rem; border-radius: var(--radius); border:1px solid var(--border-color);">
+                <h3 class="text-center" style="margin-bottom: 1.5rem; color: var(--primary-color);">Beri Testimoni Anda</h3>
+                <form id="testimonialForm">
+                    <div class="form-group">
+                        <input type="text" id="testiName" class="form-control" placeholder="Nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="testiGame" class="form-control" placeholder="Game & Detail (Contoh: MLBB - Glory)" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="testiReview" class="form-control" placeholder="Tuliskan pengalaman Anda..." rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 10px; padding: 1rem;">Kirim Testimoni</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- FAQ / Kendala Section -->
+        <div class="mb-4 mt-4" id="faqSection">
+            <h2 class="section-heading"><i class="fa-solid fa-circle-question"></i> Kamu Punya Pertanyaan?</h2>
+            
+            <div class="faq-container" style="max-width: 800px; margin: 0 auto;">
+                <!-- Item 1 -->
+                <details class="faq-item">
+                    <summary class="faq-question">Bagaimana cara order di Dykojoki.id?</summary>
+                    <div class="faq-answer">Caranya sangat mudah!<br>1. Tentukan Game dan Layanannya.<br>2. Masukkan User ID, Zone ID, dan Nickname Anda dengan teliti.<br>3. Pilih Nominal atau Tab Mode joki (Tersedia versi ECERAN dan PAKET).<br>4. Pilih Metode Pembayaran (E-Wallet/Bank).<br>5. Masukkan No. Whatsapp dan pilih wilayah negara Anda (+62/dll).<br>6. Klik "Beli Sekarang". Tagihan serta Invoice Anda akan langsung masuk secara otomatis melalui WhatsApp Admin Dykojoki!</div>
+                </details>
+
+                <!-- Item 2 -->
+                <details class="faq-item">
+                    <summary class="faq-question">Metode Pembayaran apa saja yang ada di Dykojoki.id?</summary>
+                    <div class="faq-answer">Dykojoki.id menyediakan rute pembayaran termudah untuk Indonesia maupun Mancanegara. Saat ini tersedia dompet digital E-Wallet (DANA, GoPay, OVO) demi proses instan. Kami juga melayani Transfer Antar Bank secara manual (BCA & Mandiri) via verifikasi Customer Service kami yang responsif 24/7.</div>
+                </details>
+
+                <!-- Item 3 -->
+                <details class="faq-item">
+                    <summary class="faq-question">Berapa lama pesanan saya diproses?</summary>
+                    <div class="faq-answer">Untuk pesanan <b>Top Up</b> (Diamond/UC dll), proses berjalan kilat dalam 1-10 detik karena terhubung langsung ke server pusat (API). Untuk jasa <b>Joki</b>, estimasi standar adalah 1x24 Jam per 10 Bintang/Level.</div>
+                </details>
+
+                <!-- Item 4 -->
+                <details class="faq-item">
+                    <summary class="faq-question">Apakah Top Up & Joki di sini aman dari banned?</summary>
+                    <div class="faq-answer">Sangat aman! Layanan Top Up kami menggunakan distributor legal 100% (*No Carding*), dan proses Joki murni dimainkan oleh tangan manusia (*Pro Player*) tanpa *cheat* atau bot pihak ketiga. Akun Anda bergaransi Anti-Banned seumur hidup seputar transaksi dengan kami.</div>
+                </details>
+
+                <!-- Item 5 -->
+                <details class="faq-item">
+                    <summary class="faq-question">Apakah saya harus memberikan password akun?</summary>
+                    <div class="faq-answer">HANYA untuk layanan <b>Jasa Joki</b> kami memerlukan akses login sementara. Sedangkan untuk pesanan <b>Top Up</b>, Anda sama sekali tidak perlu memberikan password (cukup ketik ID Player/Zone ID Saja). Privasi orderan dijamin oleh hukum.</div>
+                </details>
+
+                <!-- Item 6 -->
+                <details class="faq-item">
+                    <summary class="faq-question">Kenapa pesanan saya belum berubah statusnya?</summary>
+                    <div class="faq-answer">Biasanya, pesanan diproses sukses dalam 1-5 menit. Jika terjadi *delay* (keterlambatan), kemungkinan besar karena antrean server *game* pusat sedang padat atau *Payment Gateway* sedang melakukan pemeliharaan (*maintenance*). Anda selalu dapat memantaunya menggunakan ID Invoice di halaman "Cek Pesanan".</div>
+                </details>
+
+                <!-- Item 7 -->
+                <details class="faq-item">
+                    <summary class="faq-question">Bagaimana kebijakan pengembalian dana (Refund)?</summary>
+                    <div class="faq-answer">Jika sistem mendeteksi kegagalan transaksional pada API produk kami (seperti stok habis massal) lebih dari 1x24 Jam, dana Anda akan kami otomatis kembalikan (<i>Full Refund 100%</i>) ke dompet digital (E-Wallet) / rekening bank yang Anda gunakan sebagai sumber pembayaran, tanpa potongan apapun.</div>
+                </details>
+                
+                <!-- CS Contact Action Box -->
+                <div style="background:var(--surface-bg); padding:2rem; border-radius:var(--radius); text-align:center; margin-top: 1.5rem; border:1px solid var(--border-color);">
+                    <h3 style="margin-bottom: 5px; color: var(--primary-color);">Masih Memiliki Kendala Lainnya?</h3>
+                    <p style="color:var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px;">Customer Service Dykojoki berdedikasi melayani Anda secara tulus selama 24 Jam Penuh.</p>
+                    <a href="https://wa.me/6287783842481" target="_blank" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.05rem;">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i>&nbsp; Hubungi CS (Admin Dika)
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-socials">
+                <a href="https://instagram.com/rauffffuf" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <div style="margin-bottom: 1.5rem; display: flex; justify-content: center; gap: 20px;">
+                <a href="terms.html" style="color: var(--primary-color); font-size: 0.95rem; font-weight: 700; text-decoration: none;">Syarat & Ketentuan Privasi</a>
+            </div>
+            <p style="color: var(--text-secondary);">&copy; 2026 Dykojoki.id. All rights reserved.</p>
+            <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 10px;">Platform Top Up & Jasa Joki Game Teraman & Tercepat di Indonesia</p>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modal -->
+    <div id="authModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle" style="text-align:center; margin-bottom:1.5rem; color:var(--primary-color);">Masuk ke Akun</h2>
+            
+            <div class="social-login">
+                <button class="btn btn-outline" style="width:100%; margin-bottom:10px;"><i class="fa-brands fa-google text-danger"></i> &nbsp;Lanjutkan dengan Google</button>
+                <button class="btn btn-outline" style="width:100%; margin-bottom:15px;"><i class="fa-solid fa-phone" style="color:#38a169;"></i> &nbsp;Lanjutkan dengan No. Telp</button>
+            </div>
+
+            <div style="text-align:center; margin-bottom:15px; color:var(--text-secondary); font-size:0.9rem;">ATAU</div>
+
+            <form id="authForm">
+                <div class="form-group">
+                    <label class="form-label">Email / No WhatsApp</label>
+                    <input type="text" class="form-control" placeholder="Masukkan Email atau No WA" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" placeholder="Masukkan Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="padding:0.8rem;">Lanjutkan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Invoice Check Modal -->
+    <div id="invoiceModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close-modal" id="closeInvoiceModal">&times;</span>
+            <h2 style="text-align:center; margin-bottom:1.5rem; color:var(--primary-color);">Cek Status Pesanan</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Nomor Invoice</label>
+                <input type="text" id="searchInvoiceId" class="form-control" placeholder="Contoh: INV-DYK-1711234567" required>
+            </div>
+            <button class="btn btn-primary btn-block" id="btnSearchInvoice" style="padding:0.8rem; margin-bottom: 2rem;">Cari Pesanan</button>
+
+            <!-- Result Box -->
+            <div id="invoiceResultBox" style="display:none; background:var(--dark-bg); border:1px solid var(--border-color); border-radius:8px; padding:15px;">
+                <!-- Filled via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

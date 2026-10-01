@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Life Mobile Simulator - Dykojoki.id</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111116;
+            background-image: radial-gradient(circle at top, #1e1e2d, #0d0d12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            padding-bottom: 50px;
+        }
+
+        .header-panel {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            max-width: 90%;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin: 0 0 15px 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            letter-spacing: 0.5px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .device-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #a0a0b0;
+            padding: 10px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .device-btn:hover {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .device-btn.active {
+            background: linear-gradient(135deg, #00f0ff, #ff2a5f);
+            color: #fff;
+            border-color: transparent;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(255, 42, 95, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* --- SMARTPHONE CONTAINER --- */
+        .smartphone {
+            position: relative;
+            margin: auto;
+            border: 16px solid #1f1f26;
+            border-top-width: 50px;
+            border-bottom-width: 50px;
+            border-radius: 40px;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.9), 
+                inset 0 0 15px rgba(255,255,255,0.05),
+                0 0 0 2px rgba(255,255,255,0.1); /* bezel reflection */
+            background-color: #000;
+            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: scale(0.72);
+            transform-origin: top center;
+            margin-bottom: -200px;
+        }
+
+        /* DEVICE SIZES */
+        .smartphone[data-device="iphone15pro"] { width: 393px; height: 852px; }
+        .smartphone[data-device="iphone15promax"] { width: 430px; height: 932px; }
+        .smartphone[data-device="iphone12"] { width: 390px; height: 844px; }
+        .smartphone[data-device="s23ultra"] { width: 412px; height: 915px; }
+        .smartphone[data-device="pixel8pro"] { width: 412px; height: 892px; }
+
+        /* Dynamic Island / Camera representation */
+        .smartphone::before {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 25px;
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            border-radius: 20px;
+            border: 1px solid #222;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+        }
+
+        /* iPhone 12 Traditional Notch */
+        .smartphone[data-device="iphone12"]::before {
+            width: 140px;
+            height: 25px;
+            top: -1px;
+            border-radius: 0 0 15px 15px;
+            border-top: none;
+        }
+
+        /* Samsung/Pixel Punch Hole adaptation */
+        .smartphone[data-device="s23ultra"]::before, 
+        .smartphone[data-device="pixel8pro"]::before {
+            width: 18px;
+            height: 18px;
+            top: -30px;
+            border-radius: 50%;
+        }
+
+        .smartphone iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background-color: #08080c; 
+            border-radius: 8px; /* Slightly rounded corners for the screen itself */
+            overflow: hidden;
+        }
+        
+        /* Device frame subtle changes based on brand */
+        .smartphone[data-device="s23ultra"] {
+            border-radius: 20px; /* Samsung is often more boxy */
+        }
+        
+        .page-selector {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .page-selector select {
+            background: rgba(0,0,0,0.5);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-size: 0.95rem;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-panel">
+        <h1>Device Simulator (Real-Life Dimensions)</h1>
+        
+        <!-- Tab Devices -->
+        <div class="controls" id="deviceControls">
+            <button class="device-btn active" data-target="iphone15pro">iPhone 15 Pro (393x852)</button>
+            <button class="device-btn" data-target="iphone15promax">iPhone 15 Pro Max (430x932)</button>
+            <button class="device-btn" data-target="iphone12">iPhone 12 (390x844)</button>
+            <button class="device-btn" data-target="s23ultra">Galaxy S23 Ultra (412x915)</button>
+            <button class="device-btn" data-target="pixel8pro">Pixel 8 Pro (412x892)</button>
+        </div>
+
+        <!-- Page Switcher -->
+        <div class="page-selector">
+            <span style="color: #a0a0b0; font-size: 0.9rem;">Pratinjau Halaman:</span>
+            <select id="pageSelect">
+                <option value="index.html">Beranda Utama (index.html)</option>
+                <option value="payment.html">Halaman Checkout / Flow Order (payment.html)</option>
+                <option value="calculator.html">Kalkulator Pintar (calculator.html)</option>
+                <option value="terms.html">Syarat & Privasi (terms.html)</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Phone Frame -->
+    <div class="smartphone" id="simulatorFrame" data-device="iphone15pro">
+        <iframe id="screenFrame" src="index.html" title="Mobile Preview"></iframe>
+    </div>
+
+    <script>
+        // Logic Panel Device Switcher
+        const buttons = document.querySelectorAll('.device-btn');
+        const simulator = document.getElementById('simulatorFrame');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                simulator.setAttribute('data-device', btn.getAttribute('data-target'));
+            });
+        });
+
+        // Logic Switcher HTML Page
+        const pageSelect = document.getElementById('pageSelect');
+        const screenFrame = document.getElementById('screenFrame');
+        
+        pageSelect.addEventListener('change', (e) => {
+            screenFrame.src = e.target.value;
+        });
+    </script>
+</body>
+</html>

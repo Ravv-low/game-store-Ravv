@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up & Joki - Dykojoki.id</title>
+    <!-- Font -->
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* === DYNAMIC TABS AND STYLES === */
+        .mode-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            overflow-x: auto;
+        }
+        .mode-tab {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: var(--radius);
+            font-weight: 600;
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+        .mode-tab.active {
+            background: var(--primary-color);
+            color: #000;
+            border-color: var(--primary-color);
+        }
+        .section-title-small {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin: 1.5rem 0 1rem;
+            border-left: 3px solid var(--primary-color);
+            padding-left: 10px;
+        }
+        /* Quantity Counter */
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            background: var(--dark-bg);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: none; /* Hidden by default */
+        }
+        .qty-btn {
+            background: var(--surface-bg);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            width: 35px;
+            height: 35px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .qty-input {
+            width: 50px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Mobile specific adjustments for checkout */
+        @media (max-width: 768px) {
+            .mode-tab { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+            #checkoutTotalDisplay { font-size: 1.3rem !important; }
+            .section-title-small { font-size: 0.9rem; margin: 1rem 0; }
+            #waRegion { padding-left: 5px !important; width: 80px !important; font-size: 0.85rem !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === HEADER / NAVBAR === -->
+    <nav class="navbar">
+        <div class="container d-flex justify-between align-center">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-gamepad"></i> DYKO<span>JOKI</span>
+            </a>
+            <div class="nav-buttons">
+                <button class="btn btn-outline theme-toggle-btn" style="border:none; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);"><i class="fa-solid fa-moon"></i></button>
+                <a href="calculator.html" class="btn btn-outline" style="border:none;"><i class="fa-solid fa-calculator"></i><span class="desktop-text">&nbsp; Kalkulator ML</span></a>
+                <a href="#" class="btn btn-primary" id="btnCekInvoice"><i class="fa-solid fa-receipt"></i><span class="desktop-text">&nbsp; Cek Pesanan</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- === MAIN CONTENT === -->
+    <main class="container mt-4 mb-4">
+        <div class="order-layout">
+            
+            <!-- === LEFT: GAME INFO BANNER === -->
+            <div class="game-info">
+                <div class="floating-banner-container">
+                    <img id="gameBanner" src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop" alt="Game Banner" style="width:100%; aspect-ratio:16/9; object-fit:cover; display:block;">
+                </div>
+                <h1 id="pageGameTitle" style="font-size: 1.8rem; margin-bottom: 0.5rem; text-shadow: 0 0 15px rgba(255,42,95,0.4);">Mobile Legends</h1>
+                <p style="color: var(--text-secondary); font-size:0.9rem;">
+                    Proses Top Up otomatis 1-10 Detik. Joki terjamin 100%. Beroperasi 24 Jam.<br>
+                    Pilih nominal item, masukkan data akun, pilih pembayaran, lalu checkout!
+                </p>
+            </div>
+
+            <!-- === RIGHT: CHECKOUT FLOW === -->
+            <div class="order-steps">
+                
+                <!-- STEP 1: ACCOUNT INPUT FORM -->
+                <div class="step-card">
+                    <div class="step-card-header">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Masukkan Data Akun</div>
+                    </div>
+                    
+                    <div class="d-flex" style="gap:1rem; flex-wrap:wrap; margin-bottom: 1rem;">
+                        <div class="form-group" style="flex: 1 1 30%;">
+                            <label class="form-label">Nickname Akun</label>
+                            <div class="input-with-icon">
+                                <i class="fa-solid fa-user"></i>
+                                <input type="text" id="gameNickname" class="form-control" placeholder="Dykojoki Master" required>
+                            </div>
+                        </div>
+                        <div class="form-group" style="flex: 1 1 30%;">
+                            <label class="form-label">User ID Game</label>
+                            <div class="input-with-icon">
+                                <i class="fa-solid fa-id-badge"></i>
+                                <input type="text" id="gameId" class="form-control" placeholder="12345678" required>
+                            </div>
+                        </div>
+                        <div class="form-group" style="flex: 1 1 30%;">
+                            <label class="form-label">Server / Zone ID</label>
+                            <div class="input-with-icon">
+                                <i class="fa-solid fa-globe"></i>
+                                <input type="text" id="zoneId" class="form-control" placeholder="(1234) / Asia" required>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="color: var(--text-secondary); font-size:0.8rem; font-style: italic;">
+                        *Pastikan Data Akun (Nickname, ID, & Server) sudah benar. Kesalahan input data sepenuhnya bukan tanggung jawab dari Admin.
+                    </p>
+                </div>
+
+                <!-- STEP 2: ITEMS AND QUANTITY SELECTION -->
+                <div class="step-card">
+                    <div class="step-card-header" style="margin-bottom: 0;">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Pilih Item Top Up / Joki</div>
+                    </div>
+
+                    <!-- Dynamic Tabs will be injected here via JS -->
+                    <div id="dynamicPricingArea" style="margin-top: 1.5rem;"></div>
+
+                    <!-- Quantity Section For Eceran (Hidden By Default, Triggered via JS) -->
+                    <div id="qtySection" class="qty-controls">
+                        <span style="font-weight: 600; font-size: 0.95rem; margin-right:auto;">Jumlah Bintang/Match:</span>
+                        <button class="qty-btn" id="btnMinusQty">-</button>
+                        <input type="text" id="qtyInput" class="qty-input" value="1" readonly>
+                        <button class="qty-btn" id="btnPlusQty">+</button>
+                    </div>
+
+                </div>
+
+                <!-- STEP 3: PAYMENT METHOD -->
+                <div class="step-card">
+                    <div class="step-card-header">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Pilih Metode Pembayaran</div>
+                    </div>
+
+                    <div class="payment-grid">
+                        
+                        <!-- Group: E-Wallet -->
+                        <div class="payment-group">
+                            <div class="payment-group-header">E-Wallet (Otomatis)</div>
+                            <div class="payment-methods-inner">
+                                <div class="payment-card" data-method="DANA">
+                                    <div class="payment-logo" style="color:#118ee9;">DANA</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                                <div class="payment-card" data-method="GoPay">
+                                    <div class="payment-logo" style="color:#00aadd;">GoPay</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                                <div class="payment-card" data-method="OVO">
+                                    <div class="payment-logo" style="color:#4c3494;">OVO</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                                <div class="payment-card" data-method="ShopeePay">
+                                    <div class="payment-logo" style="color:#ee4d2d;">ShopeePay</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                                <div class="payment-card" data-method="LinkAja">
+                                    <div class="payment-logo" style="color:#e3292b;">LinkAja</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Group: Transfer Bank -->
+                        <div class="payment-group">
+                            <div class="payment-group-header">Transfer Bank (Cek Manual)</div>
+                            <div class="payment-methods-inner">
+                                <div class="payment-card" data-method="BCA">
+                                    <div class="payment-logo" style="color:#0066ae;">BCA</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                                <div class="payment-card" data-method="Mandiri">
+                                    <div class="payment-logo" style="color:#f2a900;">Mandiri</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                                <div class="payment-card" data-method="BNI">
+                                    <div class="payment-logo" style="color:#f05a28;">BNI</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                                <div class="payment-card" data-method="BRI">
+                                    <div class="payment-logo" style="color:#00529c;">BRI</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                                <div class="payment-card" data-method="BSI">
+                                    <div class="payment-logo" style="color:#00a29c;">BSI</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                                <div class="payment-card" data-method="CIMB Niaga">
+                                    <div class="payment-logo" style="color:#e3000f;">CIMB</div>
+                                    <div class="payment-price">Rp -</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: WHATSAPP NUMBER & FINAL CHECKOUT -->
+                <div class="step-card">
+                    <div class="step-card-header">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Konfirmasi & Checkout</div>
+                    </div>
+                    
+                    <div class="form-group mb-4">
+                        <label class="form-label">No. WhatsApp (Aktif & Bisa Dihubungi)</label>
+                        <div style="display: flex; gap: 10px;">
+                            <select id="waRegion" class="form-control" style="width: 100px; padding-left: 10px; font-weight: bold; background: var(--dark-bg); color: var(--text-primary); border: 1px solid var(--border-color);">
+                                <option value="62">🇮🇩 +62</option>
+                                <option value="60">🇲🇾 +60</option>
+                                <option value="65">🇸🇬 +65</option>
+                                <option value="63">🇵🇭 +63</option>
+                                <option value="1">🇺🇸 +1</option>
+                            </select>
+                            <input type="text" id="whatsapp" class="form-control" placeholder="Cth: 812345678" required style="flex: 1;">
+                        </div>
+                        <small style="color:var(--text-secondary); display:block; margin-top:5px;">Nomor WA ini akan kami simpan ke Invoice agar Anda bisa melacak status pesanan Anda.</small>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); border: 1px dashed var(--primary-color); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                        <label class="form-label" style="margin-bottom: 10px; color: var(--secondary-color); font-weight: 600;"><i class="fa-solid fa-ticket"></i> Punya Kode Promo?</label>
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" id="promoCodeInput" class="form-control" placeholder="Masukkan kode promo (opsional)..." style="flex: 1; text-transform: uppercase;">
+                            <button class="btn btn-primary" id="btnApplyPromo" style="padding: 0 20px; font-weight: 700; border-radius: 6px;">Terapkan</button>
+                        </div>
+                        <div id="promoMessage" style="font-size: 0.85rem; font-weight: bold;"></div>
+                        
+                        <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 15px; padding-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 1.1rem;">Total Bayar:</span>
+                            <div id="checkoutTotalDisplay" style="font-size: 1.6rem; font-weight: 800; color: var(--secondary-color); text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);">Rp 0</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" style="padding: 1rem; font-size: 1.1rem; text-transform: uppercase; box-shadow: 0 8px 32px rgba(255,42,95,0.4); display: flex; justify-content: center; align-items: center; gap: 8px;" id="btnCheckout">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Beli Sekarang
+                    </button>
+                    
+                    <!-- Trust Badges -->
+                    <div class="trust-badges mt-4 text-center" style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px;">
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 12px;">
+                            <i class="fa-solid fa-lock" style="color: #00ff88;"></i> Pembayaran 100% Aman & Terenkripsi
+                        </div>
+                        <div class="d-flex justify-content-center flex-wrap" style="gap: 10px;">
+                            <span class="badge" style="background: rgba(0, 255, 136, 0.1); color: #00ff88; padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; border: 1px solid rgba(0,255,136,0.3);"><i class="fa-solid fa-shield-halved"></i> 100% Legal</span>
+                            <span class="badge" style="background: rgba(0, 240, 255, 0.1); color: #00f0ff; padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; border: 1px solid rgba(0,240,255,0.3);"><i class="fa-solid fa-ban"></i> Anti-Banned</span>
+                            <span class="badge" style="background: rgba(255, 42, 95, 0.1); color: #ff2a5f; padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; border: 1px solid rgba(255,42,95,0.3);"><i class="fa-solid fa-wallet"></i> Bebas E-Wallet</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- === INVOICE CHECK MODAL (ACCESSIBLE FROM NAVBAR) === -->
+    <div id="invoiceModal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close-modal" id="closeInvoiceModal">&times;</span>
+            <h2 style="text-align:center; margin-bottom:1.5rem; color:var(--primary-color);">Cek Status Pesanan</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Nomor Invoice</label>
+                <input type="text" id="searchInvoiceId" class="form-control" placeholder="Contoh: INV-DYK-1711234567" required>
+            </div>
+            <button class="btn btn-primary btn-block" id="btnSearchInvoice" style="padding:0.8rem; margin-bottom: 2rem;">Cari Pesanan</button>
+
+            <!-- Result Box -->
+            <div id="invoiceResultBox" style="display:none; background:var(--dark-bg); border:1px solid var(--border-color); border-radius:8px; padding:15px;">
+                <!-- Filled via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="payment-logos d-flex justify-content-center flex-wrap" style="gap: 15px; margin-bottom: 1.5rem;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/1200px-Logo_dana_blue.svg.png" alt="DANA">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gopay_logo.svg/1200px-Gopay_logo.svg.png" alt="GoPay">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/ShopeePay_Logo.png/1200px-ShopeePay_Logo.png" alt="ShopeePay">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/QRIS_logo.svg/1200px-QRIS_logo.svg.png" alt="QRIS">
+            </div>
+            <div class="footer-socials" style="margin-bottom: 1rem;">
+                <a href="https://instagram.com/rauffffuf" target="_blank" style="color:#e1306c; text-shadow:0 0 10px rgba(225,48,108,0.5);"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color:#00f2fe; text-shadow:0 0 10px rgba(0,242,254,0.5);"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" style="color:#25d366; text-shadow:0 0 10px rgba(37,211,102,0.5);"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <div style="margin-bottom: 1.5rem; display: flex; justify-content: center; gap: 20px;">
+                <a href="terms.html" style="color: var(--primary-color); font-size: 0.95rem; font-weight: 700; text-decoration: none;">Syarat & Ketentuan Privasi</a>
+            </div>
+            <p style="color: var(--text-secondary);">&copy; 2026 Dykojoki.id. All rights reserved.</p>
+            <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 10px;">Platform Top Up & Jasa Joki Game Teraman & Tercepat di Indonesia</p>
+        </div>
+    </footer>
+
+    <!-- MAIN SCRIPT -->
+    <script src="script.js"></script>
+</body>
+</html>

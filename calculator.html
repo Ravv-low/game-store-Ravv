@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator MLBB - Dykojoki.id</title>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .calc-tabs {
+            display: flex; gap: 10px; margin-bottom: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;
+        }
+        .calc-tab {
+            padding: 0.8rem 1.5rem; cursor: pointer; border-radius: var(--radius); font-weight: 600; background: var(--surface-bg); border: 1px solid var(--border-color);
+        }
+        .calc-tab.active {
+            background: var(--primary-color); color: #000; border-color: var(--primary-color);
+        }
+        .calc-section { display: none; }
+        .calc-section.active { display: block; animation: fadeIn 0.3s ease; }
+        
+        .result-box {
+            background: rgba(252, 163, 17, 0.1); border: 1px solid var(--primary-color); padding: 1.5rem; border-radius: var(--radius); margin-top: 1.5rem; text-align: center; display: none;
+        }
+        .result-box h3 { color: var(--primary-color); font-size: 2rem; margin: 10px 0; }
+        @keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
+
+        /* Mobile Scaling Overrides for Calculator */
+        @media (max-width: 768px) {
+            .calc-tabs { gap: 5px; margin-bottom: 1rem; overflow-x: auto; }
+            .calc-tab { padding: 0.6rem 0.8rem; font-size: 0.8rem; white-space: nowrap; border-radius: 12px; }
+            .result-box { padding: 1rem; margin-top: 1rem; border-radius: 16px; }
+            .result-box h3 { font-size: 1.4rem; }
+            .btn { padding: 0.8rem !important; }
+            h1.text-center { font-size: 1.3rem; margin-bottom: 0.5rem !important; }
+            p.text-center { margin-bottom: 1.2rem !important; font-size: 0.85rem; line-height: 1.4; }
+            .form-group.mb-4 { margin-bottom: 1rem !important; }
+            .step-card { padding: 1rem; }
+            .step-card h3 { font-size: 1.1rem; margin-bottom: 1rem !important; }
+            i.fa-gem { font-size: 1.1rem !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar">
+        <div class="container d-flex justify-between align-center">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-gamepad"></i> DYKO<span>JOKI</span>
+            </a>
+            <div class="nav-buttons">
+                <button class="btn btn-outline theme-toggle-btn" style="border:none; border-radius: 50%; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);"><i class="fa-solid fa-moon"></i></button>
+                <a href="index.html" class="btn btn-outline" style="border:none;"><i class="fa-solid fa-arrow-left"></i><span class="desktop-text">&nbsp; Kembali</span></a>
+                <a href="#" class="btn btn-primary" id="btnCekInvoice"><i class="fa-solid fa-receipt"></i><span class="desktop-text">&nbsp; Cek Pesanan</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-4 mb-4">
+        <div style="max-width: 600px; margin: 0 auto;">
+            <h1 class="text-center" style="margin-bottom: 1rem;"><i class="fa-solid fa-calculator" style="color:var(--primary-color)"></i> Kalkulator Pintar MLBB</h1>
+            <p class="text-center" style="color:var(--text-secondary); margin-bottom: 2rem;">Hitung perkiraan Winrate, Harga Skin Zodiac, dan Skin Collector / Magic Wheel dengan mudah.</p>
+
+            <!-- Tabs -->
+            <div class="calc-tabs" style="justify-content: center;">
+                <div class="calc-tab active" data-target="wrCalc">Winrate</div>
+                <div class="calc-tab" data-target="zodiacCalc">Zodiac</div>
+                <div class="calc-tab" data-target="magicCalc">Magic Wheel/Collector</div>
+            </div>
+
+            <!-- Kalkulator Winrate -->
+            <div id="wrCalc" class="calc-section active">
+                <div class="step-card">
+                    <h3 style="margin-bottom: 1.5rem; color:var(--primary-color)">Kalkulator Winrate</h3>
+                    <div class="form-group">
+                        <label class="form-label">Total Match Saat Ini</label>
+                        <input type="number" id="totalMatch" class="form-control" placeholder="Contoh: 350">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Winrate Saat Ini (%)</label>
+                        <input type="number" step="0.1" id="currentWR" class="form-control" placeholder="Contoh: 51.5">
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="form-label">Target Winrate (%)</label>
+                        <input type="number" step="0.1" id="targetWR" class="form-control" placeholder="Contoh: 60">
+                    </div>
+                    <button class="btn btn-primary btn-block" id="btnHitungWR" style="padding:1rem;">Hitung Kebutuhan</button>
+
+                    <div id="resultWR" class="result-box">
+                        <p>Anda Perlu Menang Tanpa Kalah Sebanyak:</p>
+                        <h3 id="txtWR">- Match</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kalkulator Zodiac -->
+            <div id="zodiacCalc" class="calc-section">
+                <div class="step-card">
+                    <h3 style="margin-bottom: 1.5rem; color:var(--primary-color)">Kalkulator Zodiac</h3>
+                    <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:1.5rem;">Membutuhkan 100 Star Power. 1 Summon = 20 Diamond/COA.</p>
+                    <div class="form-group mb-4">
+                        <label class="form-label">Star Power Saat Ini</label>
+                        <input type="number" id="starPower" class="form-control" placeholder="Contoh: 50" max="100">
+                    </div>
+                    <button class="btn btn-primary btn-block" id="btnHitungZodiac" style="padding:1rem;">Hitung Diamond</button>
+
+                    <div id="resultZodiac" class="result-box">
+                        <p>Maksimal Diamond / COA yang Dibutuhkan:</p>
+                        <h3 id="txtZodiac">- <i class="fa-regular fa-gem" style="font-size:1.5rem;"></i></h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kalkulator Magic Wheel -->
+            <div id="magicCalc" class="calc-section">
+                <div class="step-card">
+                    <h3 style="margin-bottom: 1.5rem; color:var(--primary-color)">Magic Wheel / Collector</h3>
+                    <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:1.5rem;">Maksimal butuh 200 Magic Core. Tiap spin memberikan peluang (asumsi rata-rata 1 Core per spin atau 60 diamond).</p>
+                    <div class="form-group mb-4">
+                        <label class="form-label">Magic Core Saat Ini</label>
+                        <input type="number" id="magicCore" class="form-control" placeholder="Contoh: 120" max="200">
+                    </div>
+                    <button class="btn btn-primary btn-block" id="btnHitungMagic" style="padding:1rem;">Hitung Estimasi</button>
+
+                    <div id="resultMagic" class="result-box">
+                        <p>Estimasi Diamond / COA yang dibutuhkan:</p>
+                        <h3 id="txtMagic">- <i class="fa-regular fa-gem" style="font-size:1.5rem;"></i></h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-socials">
+                <a href="https://instagram.com/rauffffuf" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <div style="margin-bottom: 1.5rem; display: flex; justify-content: center; gap: 20px;">
+                <a href="terms.html" style="color: var(--primary-color); font-size: 0.95rem; font-weight: 700; text-decoration: none;">Syarat & Ketentuan Privasi</a>
+            </div>
+            <p style="color: var(--text-secondary);">&copy; 2026 Dykojoki.id. All rights reserved.</p>
+            <p style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 10px;">Platform Jasa Joki Game Teraman & Tercepat di Indonesia</p>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Tabs Logic
+            const tabs = document.querySelectorAll('.calc-tab');
+            const sections = document.querySelectorAll('.calc-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    document.getElementById(tab.getAttribute('data-target')).classList.add('active');
+                });
+            });
+
+            // 1. Hitung Winrate
+            document.getElementById('btnHitungWR').addEventListener('click', () => {
+                const totalMatch = parseFloat(document.getElementById('totalMatch').value);
+                const currentWR = parseFloat(document.getElementById('currentWR').value);
+                const targetWR = parseFloat(document.getElementById('targetWR').value);
+
+                if(!totalMatch || !currentWR || !targetWR) return alert("Penuhi semua kolom");
+                if(targetWR >= 100) return alert("Target WR maksimal adalah 99.9%");
+                if(currentWR >= targetWR) return alert("Terget WR harus lebih besar dari WR saat ini");
+
+                const totalWins = totalMatch * (currentWR / 100);
+                const wt = targetWR / 100;
+                // Rumus: X = (WT * TotalMatch - TotalWins) / (1 - WT)
+                let requiredWins = Math.ceil(((wt * totalMatch) - totalWins) / (1 - wt));
+
+                document.getElementById('resultWR').style.display = 'block';
+                document.getElementById('txtWR').textContent = requiredWins + ' Match';
+            });
+
+            // 2. Hitung Zodiac
+            document.getElementById('btnHitungZodiac').addEventListener('click', () => {
+                const starPower = parseFloat(document.getElementById('starPower').value);
+                if(isNaN(starPower) || starPower < 0 || starPower >= 100) return alert("Masukkan Star Power 0-99");
+                
+                const needed = 100 - starPower;
+                const maxDiamond = needed * 20; // Worst case scenario 1 summon = 1 power = 20 dm
+
+                document.getElementById('resultZodiac').style.display = 'block';
+                document.getElementById('txtZodiac').innerHTML = maxDiamond + ' <i class="fa-regular fa-gem" style="font-size:1.5rem;"></i>';
+            });
+
+            // 3. Hitung Magic Wheel
+            document.getElementById('btnHitungMagic').addEventListener('click', () => {
+                const magicCore = parseFloat(document.getElementById('magicCore').value);
+                if(isNaN(magicCore) || magicCore < 0 || magicCore >= 200) return alert("Masukkan Magic Core 0-199");
+                
+                const needed = 200 - magicCore;
+                // Estimasi 1 Core per 1 spin (60 diamond). Asumsi terburuk tidak dapat jackpot crystal.
+                const estimasiDiamond = needed * 60; 
+
+                document.getElementById('resultMagic').style.display = 'block';
+                document.getElementById('txtMagic').innerHTML = estimasiDiamond.toLocaleString('id-ID') + ' <i class="fa-regular fa-gem" style="font-size:1.5rem;"></i>';
+            });
+
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
